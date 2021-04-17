@@ -1,0 +1,30 @@
+{
+    "name": "lulububu/bolt-base-extension",
+    "description": "",
+    "type": "bolt-extension",
+    "version": "0.1",
+    "keywords": [
+    ],
+    "require": {
+    },
+    "require-dev": {
+        "bolt/core": "^4.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joshua",
+            "email": "joshua@lulububu.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Lulububu\\BaseExtension\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "entrypoint": "Lulububu\\BaseExtension\\BaseExtension"
+    }
+}
