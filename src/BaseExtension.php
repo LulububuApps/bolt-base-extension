@@ -9,6 +9,7 @@ use Bolt\Extension\BaseExtension as BoltBaseExtension;
 use Bolt\Repository\ContentRepository;
 use Lulububu\BaseExtension\Listener\SettingsListener;
 use Lulububu\BaseExtension\Service\SettingsService;
+use Lulububu\BaseExtension\Service\TaxonomyService;
 use Lulububu\BaseExtension\Widget\InjectorWidget;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
@@ -70,9 +71,12 @@ class BaseExtension extends BoltBaseExtension
          */
         $contentRepository = $this->entityManager->getRepository(Content::class);
         $settingsService   = new SettingsService($contentRepository);
+        $taxonomyService   = new TaxonomyService($contentRepository);
         $settings          = $settingsService->getSettings();
+        $menus             = $taxonomyService->getMenus();
 
         $this->addWidget(new InjectorWidget());
+        $this->getTwig()->addGlobal('menus', $menus);
         $this->getTwig()->addGlobal('settings', $settings);
         $this->addListener('kernel.request', [new SettingsListener($settingsService), 'kernelRequestEvent']);
     }
