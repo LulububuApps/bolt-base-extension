@@ -1,4 +1,4 @@
-body
+.form-group.is-hidden
 {
-    background-color: #ff00ff !important;
+    display: none;
 }
