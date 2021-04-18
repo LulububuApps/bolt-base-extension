@@ -2,3 +2,13 @@
 {
     display: none;
 }
+
+.multiselect-bolt-wrapper
+{
+    position: relative;
+}
+
+.multiselect-bolt-wrapper > input[type="hidden"]
+{
+    position: absolute;
+}
