@@ -73,6 +73,7 @@ class BaseExtension extends BoltBaseExtension
         $this->addWidget(new LulububuInjectorWidget());
         $this->getTwig()->addGlobal('settings', $settings);
         $this->addListener('kernel.request', [new SettingsListener($settingsService), 'kernelRequestEvent']);
+        $this->addListener('kernel.exception', [new ExceptionListener(), 'onKernelException']);
     }
 
     /**
