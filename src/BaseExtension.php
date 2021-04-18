@@ -2,11 +2,14 @@
 
 namespace Lulububu\BaseExtension;
 
+use Appolo\BoltSeo\Widget\LulububuInjectorWidget;
 use Bolt\Entity\Content;
 use Bolt\Extension\BaseExtension as BoltBaseExtension;
 use Bolt\Repository\ContentRepository;
 use Lulububu\BaseExtension\Listener\SettingsListener;
 use Lulububu\BaseExtension\Service\SettingsService;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -67,7 +70,26 @@ class BaseExtension extends BoltBaseExtension
         $settingsService   = new SettingsService($contentRepository);
         $settings          = $settingsService->getSettings();
 
+        $this->addWidget(new LulububuInjectorWidget());
         $this->getTwig()->addGlobal('settings', $settings);
         $this->addListener('kernel.request', [new SettingsListener($settingsService), 'kernelRequestEvent']);
+    }
+
+    /**
+     *
+     */
+    public function install(): void
+    {
+        /**
+         * @var Container $container
+         */
+        $container   = $this->getContainer();
+        $projectDir  = $container->getParameter('kernel.project_dir');
+        $public      = $container->getParameter('bolt.public_folder');
+        $filesystem  = new Filesystem();
+        $source      = \dirname(__DIR__) . '/assets/';
+        $destination = $projectDir . '/' . $public . '/assets/';
+
+        $filesystem->mirror($source, $destination);
     }
 }
