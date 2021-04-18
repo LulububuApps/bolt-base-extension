@@ -7,6 +7,7 @@ namespace Lulububu\BaseExtension\Controller;
 use Bolt\Controller\Frontend\DetailController;
 use Lulububu\BaseExtension\Service\SettingsService;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class HomepageController
@@ -17,6 +18,18 @@ use Symfony\Component\HttpFoundation\Response;
 class HomepageController extends BaseController
 {
     /**
+     * @Route(
+     *     "/",
+     *     name="lulububu_homepage",
+     *     methods={"GET"},
+     * )
+     * @Route(
+     *     "/{_locale}",
+     *     name="lulububu_homepage_locale",
+     *     requirements={"_locale": "%app_locales%"},
+     *     methods={"GET"},
+     * )
+     *
      * @param SettingsService $settingsService
      * @param DetailController $detailController
      * @param ErrorController $errorController
