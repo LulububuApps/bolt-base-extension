@@ -7,7 +7,6 @@ namespace Lulububu\BaseExtension;
 use Bolt\Entity\Content;
 use Bolt\Extension\BaseExtension as BoltBaseExtension;
 use Bolt\Repository\ContentRepository;
-use Lulububu\BaseExtension\Listener\ExceptionListener;
 use Lulububu\BaseExtension\Listener\SettingsListener;
 use Lulububu\BaseExtension\Service\SettingsService;
 use Lulububu\BaseExtension\Widget\InjectorWidget;
@@ -76,7 +75,6 @@ class BaseExtension extends BoltBaseExtension
         $this->addWidget(new InjectorWidget());
         $this->getTwig()->addGlobal('settings', $settings);
         $this->addListener('kernel.request', [new SettingsListener($settingsService), 'kernelRequestEvent']);
-        $this->addListener('kernel.exception', [new ExceptionListener(), 'onKernelException']);
     }
 
     /**

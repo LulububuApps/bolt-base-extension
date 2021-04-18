@@ -85,10 +85,28 @@ class ErrorController extends BaseErrorController
 
     /**
      * @return Response
+     *
+     * @see Method Copied from Bolt\Controller\ErrorController::showNotFound
+     */
+    private function showNotFound(): Response
+    {
+        foreach ($this->config->get('general/notfound') as $item) {
+            $output = $this->attemptToRender($item);
+
+            if ($output instanceof Response) {
+                return $output;
+            }
+        }
+
+        return new Response('404: Not found (and there was no proper page configured to display)');
+    }
+
+    /**
+     * @return Response
      */
     public function showNoHomepage(): Response
     {
-        $output = $this->attemptToRender($this->config->get('general/homepage_template'));
+        $output = $this->attemptToRender($this->config->get('general/homepage_default_demplate'));
 
         if ($output instanceof Response) {
             return $output;
