@@ -35,10 +35,35 @@ class SettingsService
      */
     public function getSettings(): ?Content
     {
-        $settings = $this->contentRepository->findOneBy(['contentType' => 'settings']);
+        $settings = $this->contentRepository->findOneBy([
+            'contentType' => 'settings',
+        ]);
 
         if ($settings) {
             return $settings;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return Content|null
+     */
+    public function getHomepage(): ?Content
+    {
+        $settings = $this->getSettings();
+
+        if (!$settings) {
+            return null;
+        }
+
+        $homepage = $this->contentRepository->findOneBy([
+            'contentType' => 'pages',
+            'id'          => $settings->getFieldValue('homepage'),
+        ]);
+        
+        if ($homepage) {
+            return $homepage;
         }
 
         return null;

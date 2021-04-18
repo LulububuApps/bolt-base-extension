@@ -71,13 +71,15 @@ class BaseExtension extends BoltBaseExtension
          */
         $contentRepository = $this->entityManager->getRepository(Content::class);
         $settingsService   = new SettingsService($contentRepository);
-        $taxonomyService   = new TaxonomyService($contentRepository);
+        $taxonomyService   = new TaxonomyService($this->entityManager);
         $settings          = $settingsService->getSettings();
+        $homepage          = $settingsService->getHomepage();
         $menus             = $taxonomyService->getMenus();
 
         $this->addWidget(new InjectorWidget());
         $this->getTwig()->addGlobal('menus', $menus);
         $this->getTwig()->addGlobal('settings', $settings);
+        $this->getTwig()->addGlobal('homepage', $homepage);
         $this->addListener('kernel.request', [new SettingsListener($settingsService), 'kernelRequestEvent']);
     }
 
