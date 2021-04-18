@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lulububu\BaseExtension\Widget;
 
 use Bolt\Widget\BaseWidget;
@@ -9,12 +11,12 @@ use Bolt\Widget\TwigAwareInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class LulububuInjectorWidget
+ * Class InjectorWidget
  *
  * @author Joshua Schumacher <joshua@lulububu.de>
  * @package Lulububu\BaseExtension\Widget
  */
-class LulububuInjectorWidget extends BaseWidget implements TwigAwareInterface
+class InjectorWidget extends BaseWidget implements TwigAwareInterface
 {
     /**
      * @var string $name

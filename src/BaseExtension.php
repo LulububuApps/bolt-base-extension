@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lulububu\BaseExtension;
 
 use Bolt\Entity\Content;
 use Bolt\Extension\BaseExtension as BoltBaseExtension;
 use Bolt\Repository\ContentRepository;
+use Lulububu\BaseExtension\Listener\ExceptionListener;
 use Lulububu\BaseExtension\Listener\SettingsListener;
 use Lulububu\BaseExtension\Service\SettingsService;
-use Lulububu\BaseExtension\Widget\LulububuInjectorWidget;
+use Lulububu\BaseExtension\Widget\InjectorWidget;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Route;
@@ -70,7 +73,7 @@ class BaseExtension extends BoltBaseExtension
         $settingsService   = new SettingsService($contentRepository);
         $settings          = $settingsService->getSettings();
 
-        $this->addWidget(new LulububuInjectorWidget());
+        $this->addWidget(new InjectorWidget());
         $this->getTwig()->addGlobal('settings', $settings);
         $this->addListener('kernel.request', [new SettingsListener($settingsService), 'kernelRequestEvent']);
         $this->addListener('kernel.exception', [new ExceptionListener(), 'onKernelException']);

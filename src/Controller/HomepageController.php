@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lulububu\BaseExtension\Controller;
 
 use Bolt\Controller\Frontend\DetailController;
-use Lulububu\BaseExtension\Service\ErrorService;
 use Lulububu\BaseExtension\Service\SettingsService;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,27 +19,27 @@ class HomepageController extends BaseController
     /**
      * @param SettingsService $settingsService
      * @param DetailController $detailController
-     * @param ErrorService $errorService
+     * @param ErrorController $errorController
      * @return Response
      */
     public function homepage(
         SettingsService $settingsService,
         DetailController $detailController,
-        ErrorService $errorService
+        ErrorController $errorController
     ): Response
     {
         $maintenanceMode = $this->isMaintenanceMode();
         $isLoggedIn      = $this->isLoggedIn();
 
         if ($maintenanceMode && !$isLoggedIn) {
-            return $errorService->showMaintenance();
+            return $errorController->showMaintenance();
         }
 
         $settings   = $settingsService->getSettings();
         $homepageId = $settings->getFieldValue('homepage');
 
         if (!$homepageId || !is_integer($homepageId)) {
-            return $errorService->showNoHomepage();
+            return $errorController->showNoHomepage();
         }
 
         return $detailController->record($homepageId);

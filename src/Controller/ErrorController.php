@@ -1,21 +1,28 @@
 <?php
 
-namespace Lulububu\BaseExtension\Service;
+declare(strict_types=1);
+
+namespace Lulububu\BaseExtension\Controller;
 
 use Bolt\Configuration\Config;
+use Bolt\Controller\ErrorController as BaseErrorController;
 use Bolt\Controller\Frontend\DetailController;
+use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Twig\Error\LoaderError;
 
 /**
- * Class ErrorService
+ * Class ErrorController
  *
  * @author Joshua Schumacher <joshua@lulububu.de>
- * @package Lulububu\BaseExtension\Service
+ * @package Lulububu\BaseExtension\Controller
  */
-class ErrorService
+class ErrorController extends BaseErrorController
 {
     /**
      * @var Config $config
@@ -33,18 +40,26 @@ class ErrorService
     protected $templateController;
 
     /**
-     * BaseController constructor.
+     * ErrorController constructor.
      *
+     * @param HttpKernelInterface $httpKernel
      * @param Config $config
-     * @param DetailController $detailController
+     * @param DetailControllerInterface $detailController
      * @param TemplateController $templateController
+     * @param ErrorRendererInterface $errorRenderer
+     * @param ContainerInterface $container
      */
     public function __construct(
+        HttpKernelInterface $httpKernel,
         Config $config,
-        DetailController $detailController,
-        TemplateController $templateController
+        DetailControllerInterface $detailController,
+        TemplateController $templateController,
+        ErrorRendererInterface $errorRenderer,
+        ContainerInterface $container
     )
     {
+        parent::__construct($httpKernel, $config, $detailController, $templateController, $errorRenderer, $container);
+
         $this->config             = $config;
         $this->detailController   = $detailController;
         $this->templateController = $templateController;

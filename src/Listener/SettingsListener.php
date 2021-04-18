@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lulububu\BaseExtension\Listener;
 
 use Bolt\Widget\Injector\RequestZone;
