@@ -1,6 +1,6 @@
 <?php
 
-namespace Appolo\BoltSeo\Widget;
+namespace Lulububu\BaseExtension\Widget;
 
 use Bolt\Widget\BaseWidget;
 use Bolt\Widget\Injector\RequestZone;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class LulububuInjectorWidget
  *
  * @author Joshua Schumacher <joshua@lulububu.de>
- * @package Appolo\BoltSeo\Widget
+ * @package Lulububu\BaseExtension\Widget
  */
 class LulububuInjectorWidget extends BaseWidget implements TwigAwareInterface
 {

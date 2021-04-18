@@ -2,12 +2,12 @@
 
 namespace Lulububu\BaseExtension;
 
-use Appolo\BoltSeo\Widget\LulububuInjectorWidget;
 use Bolt\Entity\Content;
 use Bolt\Extension\BaseExtension as BoltBaseExtension;
 use Bolt\Repository\ContentRepository;
 use Lulububu\BaseExtension\Listener\SettingsListener;
 use Lulububu\BaseExtension\Service\SettingsService;
+use Lulububu\BaseExtension\Widget\LulububuInjectorWidget;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Route;
