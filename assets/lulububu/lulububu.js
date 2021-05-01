@@ -2,15 +2,19 @@ const initializeSelectFields = () => {
     const multiSelectWrappers = document.querySelectorAll('.multiselect-bolt-wrapper');
 
     multiSelectWrappers.forEach((multiSelectWrapper) => {
-        const isRequired = multiSelectWrapper.previousElementSibling.querySelector('span.required-label');
+        const label = multiSelectWrapper.previousElementSibling;
 
-        if (isRequired) {
-            const inputField    = multiSelectWrapper.querySelector('input[type="hidden"]');
-            inputField.type     = 'text';
-            inputField.value    = inputField.value !== '[]' ? inputField.value : null;
-            inputField.required = true;
+        if (label) {
+            const isRequired = label.querySelector('span.required-label');
 
-            inputField.classList.add('require-select');
+            if (isRequired) {
+                const inputField    = multiSelectWrapper.querySelector('input[type="hidden"]');
+                inputField.type     = 'text';
+                inputField.value    = inputField.value !== '[]' ? inputField.value : null;
+                inputField.required = true;
+
+                inputField.classList.add('require-select');
+            }
         }
     });
 };
