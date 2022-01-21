@@ -10,10 +10,14 @@ use Bolt\Controller\Frontend\DetailController;
 use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Twig\Error\LoaderError;
 
 /**
@@ -47,18 +51,24 @@ class ErrorController extends BaseErrorController
      * @param DetailControllerInterface $detailController
      * @param TemplateController $templateController
      * @param ErrorRendererInterface $errorRenderer
-     * @param ContainerInterface $container
+     * @param ParameterBagInterface $parameterBag
+     * @param RequestStack $requestStack
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Security $security
      */
     public function __construct(
-        HttpKernelInterface $httpKernel,
-        Config $config,
+        HttpKernelInterface       $httpKernel,
+        Config                    $config,
         DetailControllerInterface $detailController,
-        TemplateController $templateController,
-        ErrorRendererInterface $errorRenderer,
-        ContainerInterface $container
+        TemplateController        $templateController,
+        ErrorRendererInterface    $errorRenderer,
+        ParameterBagInterface     $parameterBag,
+        RequestStack              $requestStack,
+        UrlGeneratorInterface     $urlGenerator,
+        Security                  $security
     )
     {
-        parent::__construct($httpKernel, $config, $detailController, $templateController, $errorRenderer, $container);
+        parent::__construct($httpKernel, $config, $detailController, $templateController, $errorRenderer, $parameterBag, $requestStack, $urlGenerator, $security);
 
         $this->config             = $config;
         $this->detailController   = $detailController;
